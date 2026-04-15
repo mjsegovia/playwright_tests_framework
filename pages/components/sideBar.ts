@@ -6,15 +6,18 @@ export class SideBar {
 
     constructor(page: Page) {
         this.page = page;
-        this.sidebar = page.locator('#sidebar');
+        this.sidebar = page.locator('.sidebar');
     }
 
     get title(): Locator {
-        return this.sidebar.locator('h2');
+        return this.sidebar.getByRole('heading', { level: 2 });
     }
 
-    get links(): Locator {
-        return this.sidebar.locator('a');
+    get customerName(): Locator {
+        return this.sidebar.locator('.customer-name');
     }
 
+    async getCustomerName(): Promise<string> {
+        return await this.customerName.innerText();
+    }
 }
