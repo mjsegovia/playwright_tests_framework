@@ -1,6 +1,6 @@
 import {Page, Locator} from '@playwright/test'
 
-export class Header {
+export class header {
     private page: Page;
     private header: Locator;
 
