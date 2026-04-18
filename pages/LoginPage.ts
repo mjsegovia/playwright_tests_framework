@@ -1,5 +1,5 @@
 import { BasePage } from "../core/base/BasePage";
-import { Header } from './components/header';
+import { Header } from './components/Header';
 import { Locator, Page } from '@playwright/test'
 
 export class LoginPage extends BasePage {
