@@ -3,11 +3,11 @@ import { Logger } from '../logger';
 
 export abstract class BasePage {
   protected page: Page;
-  protected contenedorPrincipal: Locator;
+  
 
   constructor(page: Page) {     
     this.page = page;
-     this.contenedorPrincipal = page.locator('#page-content');    
+        
   }
 
   async goto(url: string ='/') {
@@ -16,8 +16,8 @@ export abstract class BasePage {
   }
 
   async click(locator:Locator, name: string) {
-    Logger.action(`Clicking on ${name}`);
-    await locator.click();
+  Logger.action(`Clicking on ${name}`);
+  await locator.click();
   }
 
   async fill(locator:Locator, value: string, name: string) {
@@ -25,8 +25,8 @@ export abstract class BasePage {
     await locator.fill(value);
   }
 
-// async goto(): Promise<void> {
-//  await this.page.goto(this.url);
+ //async goto(): Promise<void> {
+  //await this.page.goto(this.url);
 
   async waitForPageLoad(): Promise<void> {
     await this.page.waitForLoadState('networkidle');
