@@ -8,22 +8,25 @@
     "forceConsistentCasingInFileNames": true,
 
     "esModuleInterop": true,
-    "skipLibCheck": true,
-
+    "resolveJsonModule": true,
+    "skipLibCheck": true,    
     
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",    
+
     "paths": {
-      "@pages/*": ["pages/*"],
-      "@components/*": ["pages/components/*"],
-      "@core/*": ["core/*"],
+      "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
+      "@core/*": ["src/core/*"],
       "@utils/*": ["utils/*"],
-      "@fixtures/*": ["fixtures/*"]
+      "@fixtures/*": ["src/core/fixtures/*"]
     },
 
     "types": ["node", "@playwright/test"],
   },
 
   "include": [
-   // "src/**/*.ts",
+    "src/**/*.ts",
     "tests/**/*.ts",
     "playwright.config.ts"
   ]
