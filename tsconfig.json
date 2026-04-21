@@ -16,7 +16,7 @@
 
     "paths": {
       "@pages/*": ["src/pages/*"],
-      "@components/*": ["src/components/*"],
+      "@components/*": ["src/pages/components/*"],
       "@core/*": ["src/core/*"],
       "@utils/*": ["utils/*"],
       "@fixtures/*": ["src/core/fixtures/*"]
