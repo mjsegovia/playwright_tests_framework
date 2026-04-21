@@ -1,6 +1,6 @@
 import { test, expect } from '@core/fixtures/fixtures';
 
-test('user can login', async ({ loginPage}) => {
+test('user can login', { tag: '@smoke' }, async ({ loginPage}) => {
   await loginPage.goto();
   await loginPage.login('demouser', 'testingisfun99');
   await loginPage.waitForPageLoad();
