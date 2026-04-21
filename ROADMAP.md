@@ -33,26 +33,26 @@ This roadmap outlines a comprehensive 8-week journey to build a production-ready
 ### Week 1 — Playwright Core
 
 #### Day 1
-- [ ] Create GitHub repo
-- [ ] Initialize Node project
-- [ ] Install Playwright + TypeScript
-- [ ] Create package.json
-- [ ] Create tsconfig.json
+- [x] Create GitHub repo
+- [x] Initialize Node project
+- [x] Install Playwright + TypeScript
+- [x] Create package.json
+- [x] Create tsconfig.json
 
 #### Day 2
-- [ ] Create playwright.config.ts
-- [ ] Configure baseURL
+- [x] Create playwright.config.ts
+- [x] Configure baseURL
 - [ ] Configure HTML report
 - [ ] Add npm scripts
 
 #### Day 3
-- [ ] Create first smoke test
-- [ ] Use getByRole
-- [ ] Avoid brittle selectors
+- [x ] Create first smoke test
+- [x ] Use getByRole
+- [x ] Avoid brittle selectors
 
 #### Day 4
-- [ ] Create BasePage.ts
-- [ ] Create LoginPage.ts
+- [x ] Create BasePage.ts
+- [x ] Create LoginPage.ts
 - [ ] Create HomePage.ts
 
 #### Day 5
@@ -68,7 +68,7 @@ This roadmap outlines a comprehensive 8-week journey to build a production-ready
 - [ ] Update README
 
 ### Week 2 — API + Data Validation
-
+     
 #### Day 8
 - [ ] Create apiClient.ts
 - [ ] Configure API auth
