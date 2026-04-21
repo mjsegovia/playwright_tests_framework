@@ -8,7 +8,12 @@
     "test:chromium": "playwright test --project=chromium",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
-    "test:headed": "HEADLESS=false playwright test"
+    "test:headed": "HEADLESS=false playwright test",
+    "test:api": "playwright test tests/api",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
