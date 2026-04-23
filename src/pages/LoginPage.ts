@@ -42,6 +42,6 @@ export class LoginPage extends BasePage {
         await this.page.keyboard.press('Enter');
 
        // await this.fill(this.passwordInput, password, 'Password Input');
-        await this.click(this.loginButton, 'Login Button');          
+        await this.click(this.loginButton, 'Login Button');
     }
 }    
