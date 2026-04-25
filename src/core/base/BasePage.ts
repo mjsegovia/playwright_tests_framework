@@ -1,14 +1,17 @@
 import { Page, Locator } from '@playwright/test';
+//Fix: Import Logger from the correct path
 import { Logger } from '../logger';
 
 export abstract class BasePage {
   protected page: Page;
-  
 
   constructor(page: Page) {     
-    this.page = page;
-        
+    this.page = page;        
   }
+
+  async getUrl(): Promise<string> {
+  return this.page.url();
+}
 
   async goto(url: string ='/') {
     Logger.action(`Navigating to ${url}`);
