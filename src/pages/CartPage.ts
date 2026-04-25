@@ -1,11 +1,20 @@
 import {Page, Locator} from '@playwright/test';
+//FIX: fix the path
+import { ProductCard } from './components/ProductCard';
+import { CartItem } from './components/CartItem';
 
 export class CartPage {
-    private page: Page;
-
+    
+    protected readonly page: Page;
+    //readonly productContainer: Locator;
+    
     constructor(page: Page) {
         this.page = page;
+
+        //TODO: delete if the test passes without it, it was added to try to fix a problem with the locator of the cart items
+      //  this.productContainer = this.page.locator('shelf-item');
     }
+        
 
     get cartContainer(): Locator {
         return this.page.locator('[class*="float-cart--open"]');
@@ -15,12 +24,9 @@ export class CartPage {
         return this.cartContainer.locator('.header-title');
     }
 
+   
     get cartItems(): Locator {
         return this.cartContainer.locator('.shelf-item');
-    }
-
-    get subtotal(): Locator {
-        return this.cartContainer.locator('.sub-price__val');
     }
 
     get checkoutButton(): Locator {
@@ -29,11 +35,32 @@ export class CartPage {
 
     get emptyCartMessage(): Locator {
         return this.cartContainer.locator('.shelf-empty');
-    }   
-
-    get removeItemButtons(): Locator {
-        return this.cartItems.locator('.shelf-item__del');
+    }  
+    
+     get subtotal(): Locator {
+        return this.cartContainer.locator('.sub-price__val');
     }
 
-   // async getCartItems(): Promise<Product[]>
+    
+
+    async getCartItems(): Promise<CartItem[]> {
+        const items = await this.cartItems.all();
+
+        //Map them to CartItem components
+        return items.map(item => new CartItem(this.page, item));        
+    }
+
+    async getSubtotal(): Promise<number> {
+        const subtotalText = await this.subtotal.textContent();
+        return parseFloat(subtotalText?.replace('$', '') || '0');
+    }
+
+   
+
+   
+
+    async proceedToCheckout(): Promise<void>{
+      await this.checkoutButton.click();
+    }
+
 }

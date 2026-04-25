@@ -1,15 +1,26 @@
 import { BasePage } from '@core/base/BasePage';
 import { Locator, Page } from '@playwright/test'
 
-export class LoginPage extends BasePage {
+export class ConfirmationPage extends BasePage {
   
   constructor(page: Page) {
-          super(page);                  
-      }
-
-  async goto() {
-        await this.page.goto('/confirmation')
+          super(page);
   }
   
+  get url(): string {
+    return '/confirmation';
+  }
+   
+  get confirmationMessage(): Locator {
+    return this.page.locator('#confirmation-message');
+  }
 
-}
+  get downloadOrderReceiptLink(): Locator {
+    return this.page.locator('#downloadpdf');
+  }
+
+  get continueShoppingLink(): Locator {
+    return this.page.getByRole('button', { name: 'Continue Shopping »' });
+  }
+
+}  

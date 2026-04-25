@@ -2,6 +2,7 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '@core/base/BasePage';
 import { ProductCard } from './components/ProductCard';
 
+//TODO: change name class to CatalogPage
 export class ProductsPage extends BasePage {
 
     
@@ -9,10 +10,11 @@ export class ProductsPage extends BasePage {
         return this.page.locator('.shelf-container .shelf-item');
     }
 
-    get cartButton(): Locator {
-        return this.page.locator('[class*="float-cart"]');
+    get cart(): Locator {
+        return this.page.locator('.float-cart');
     }
 
+    //TODO: Create a method to return all products as ProductCard components USINC 
    /* async getAllProducts(): Promise<ProductCard[]> {
         const cards: ProductCard[] = [];
         const count = await this.productCards.count();
@@ -27,11 +29,28 @@ export class ProductsPage extends BasePage {
         return new ProductCard(this.page, this.productCards.first());
     }
 
-    async goToCart(): Promise<void> {
-        await Promise.all([
-            this.cartButton.click(),          
-        ]);
+    //TODO: Create a method to find a product by name and return a ProductCard
+   /* async findProductByName(name: string): Promise<ProductCard> {
+        const card = this.productCards.filter({
+            has: this.page.locator('.shelf-item__title', { hasText: name })
+        }).first();
+
+        return new ProductCard(this.page, card);
+    }*/
+
+     async isOpen(): Promise<boolean> {
+        return await this.cart.evaluate(el =>
+        el.classList.contains('float-cart--open')
+        ); 
+}
 
 
-    
+
+       
+
+
+
+    async openCart(): Promise<void> {
+        await this.cart.click();        
+    }
 }
