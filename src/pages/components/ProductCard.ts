@@ -15,11 +15,11 @@ export class ProductCard {
     }
 
     get price(): Locator {
-        return this.root.locator('.shelf-item__price .val');
+        return this.root.locator('.shelf-item__price');
     }
 
     get addToCartButton(): Locator {
-        return this.root.getByRole('button', { name: 'Add to cart' });
+        return this.root.getByText('Add to cart');
     }
 
     async getName(): Promise<string> {
@@ -27,11 +27,16 @@ export class ProductCard {
     }
 
     async getPrice(): Promise<number> {
-        var integerPart = await this.price.locator('.b').innerText();
-        var decimalPart = await this.price.locator('.span').innerText();
+       /* var integerPart = await this.price.locator('.val .b').innerText();
+        var decimalPart = await this.price.locator('span').innerText();
 
         const priceString = '${integerPart}${decimalPart}';
-        return parseFloat(priceString);
+        return parseFloat(priceString);*/
+
+        const priceText = await this.price.innerText();
+        const numericText = priceText.replace(/[^\d.]/g, '');
+
+        return parseFloat(numericText);
     }
 
     async addToCart(): Promise<void> {
