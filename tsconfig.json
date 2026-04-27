@@ -12,14 +12,14 @@
     "skipLibCheck": true,    
     
     "ignoreDeprecations": "6.0",
-    "baseUrl": ".",    
+    "baseUrl": ".",
 
     "paths": {
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/pages/components/*"],
       "@core/*": ["src/core/*"],
-      "@utils/*": ["utils/*"],
-      "@fixtures/*": ["src/core/fixtures/*"]
+      "@utils/*": ["src/utils/*"],
+      "@fixtures/*": ["src/core/fixtures/*"]      
     },
 
     "types": ["node", "@playwright/test"],
