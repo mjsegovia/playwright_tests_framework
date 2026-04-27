@@ -3,12 +3,14 @@ import { Locator, Page } from '@playwright/test'
 
 export class ConfirmationPage extends BasePage {
   
+  readonly path = '**/confirmation'
   constructor(page: Page) {
           super(page);
   }
   
-  get url(): string {
-    return '/confirmation';
+  async waitForPageLoad(): Promise<void> {
+    await this.page.waitForURL(this.path, { waitUntil: 'domcontentloaded' });
+
   }
    
   get confirmationMessage(): Locator {
