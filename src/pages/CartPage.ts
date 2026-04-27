@@ -17,7 +17,7 @@ export class CartPage {
         
 
     get cartContainer(): Locator {
-        return this.page.locator('[class*="float-cart--open"]');
+        return this.page.locator('.float-cart__content') ;
     }
 
     get cartTitle(): Locator {
@@ -51,13 +51,12 @@ export class CartPage {
     }
 
     async getSubtotal(): Promise<number> {
-        const subtotalText = await this.subtotal.textContent();
-        return parseFloat(subtotalText?.replace('$', '') || '0');
-    }
+        const subtotalText = await this.subtotal.innerText();
 
-   
+        const numericText = subtotalText.replace(/[^\d.]/g, '');
 
-   
+        return parseFloat(numericText);
+    }   
 
     async proceedToCheckout(): Promise<void>{
       await this.checkoutButton.click();

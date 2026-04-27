@@ -15,7 +15,7 @@ export class ProductCard {
     }
 
     get price(): Locator {
-        return this.root.locator('.shelf-item__price');
+        return this.root.locator('.shelf-item__price .val');
     }
 
     get addToCartButton(): Locator {
@@ -27,11 +27,7 @@ export class ProductCard {
     }
 
     async getPrice(): Promise<number> {
-       /* var integerPart = await this.price.locator('.val .b').innerText();
-        var decimalPart = await this.price.locator('span').innerText();
-
-        const priceString = '${integerPart}${decimalPart}';
-        return parseFloat(priceString);*/
+       
 
         const priceText = await this.price.innerText();
         const numericText = priceText.replace(/[^\d.]/g, '');
