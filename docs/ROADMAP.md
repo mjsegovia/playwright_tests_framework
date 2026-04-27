@@ -42,26 +42,26 @@ This roadmap outlines a comprehensive 8-week journey to build a production-ready
 #### Day 2
 - [x] Create playwright.config.ts
 - [x] Configure baseURL
-- [ ] Configure HTML report
-- [ ] Add npm scripts
+- [x] Configure HTML report
+- [x] Add npm scripts
 
 #### Day 3
-- [x ] Create first smoke test
-- [x ] Use getByRole
-- [x ] Avoid brittle selectors
+- [x] Create first smoke test
+- [x] Use getByRole
+- [x] Avoid brittle selectors
 
 #### Day 4
-- [x ] Create BasePage.ts
-- [x ] Create LoginPage.ts
-- [ ] Create HomePage.ts
+- [x] Create BasePage.ts
+- [x] Create LoginPage.ts
+- [x] Create HomePage.ts
 
 #### Day 5
-- [ ] Remove waitForTimeout
-- [ ] Replace with proper assertions
+- [x] Remove waitForTimeout
+- [x] Replace with proper assertions
 
 #### Day 6
-- [ ] Create 3 smoke tests
-- [ ] Run suite locally
+- [x] Create 3 smoke tests
+- [x] Run suite locally
 
 #### Day 7
 - [ ] Refactor
@@ -123,7 +123,7 @@ This roadmap outlines a comprehensive 8-week journey to build a production-ready
 - [ ] Reorganize repo structure
 
 #### Day 16
-- [ ] Create component objects
+- [x] Create component objects
 
 #### Day 17
 - [ ] Add env separation
