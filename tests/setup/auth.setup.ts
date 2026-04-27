@@ -28,6 +28,4 @@ setup('authenticate', async ({ page }) => {
     const currentStorage = JSON.parse(fs.readFileSync(authFile, 'utf-8'));
     currentStorage.sessionStorage = JSON.parse(sessionData);
     fs.writeFileSync(authFile, JSON.stringify(currentStorage, null, 2));
-
-
 }); 
