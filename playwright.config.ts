@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import {config} from './config/config';
+import {config} from './src/config/config';
 
 export default defineConfig({
   testDir: './tests',    /* Run tests in files in parallel */
@@ -19,13 +19,22 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'setup',
+      testMatch: /auth\.setup\.ts/,
     },
-
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'chromium',
+      use: { 
+        ...devices['Desktop Chrome'],
+      storageState: '.auth/user.json'
+    },
+    dependencies: ['setup'],
+  },
+
+    /* Test against branded browsers. */
+    {
+      name: 'Microsoft Edge',
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
 
     {
