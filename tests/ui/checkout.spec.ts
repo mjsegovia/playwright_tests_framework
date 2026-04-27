@@ -1,5 +1,7 @@
 import { Logger } from '../../src/core/logger';
 import { test, expect } from '@core/fixtures/fixtures';
+import { loadSessionStorage } from '@utils/sessionStorage';
+
 
 test.describe('Checkout critical flows', () => {
 
@@ -39,9 +41,10 @@ test.describe('Checkout critical flows', () => {
     });
   });
 
-  test('should complete checkout successfully', { tag: '@smoke' }, async ({productPage, cartPage, checkoutPage, confirmationPage}) => {
+  test('should complete checkout successfully', { tag: '@smoke' }, async ({page, productPage, cartPage, checkoutPage, confirmationPage}) => {
         
-        await productPage.goto();
+    await loadSessionStorage(page);
+    await productPage.goto();
 
       const firstProduct = await productPage.firstProduct();
       var itemName = await firstProduct.getName();
@@ -67,8 +70,13 @@ test.describe('Checkout critical flows', () => {
         address: '123 Elm Street',
         stateProvince: 'RM',
         postalCode: '8320000',
-      });    
+      });  
+
+      
+        
       await checkoutPage.submitShippingInfo();
+      await confirmationPage.waitForPageLoad();
+
       
       expect(await confirmationPage.getUrl()).toContain('/confirmation');
       expect(await confirmationPage.confirmationMessage.isVisible()).toBe(true);
