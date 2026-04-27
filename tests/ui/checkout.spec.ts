@@ -70,7 +70,7 @@ test.describe('Checkout critical flows', () => {
         address: '123 Elm Street',
         stateProvince: 'RM',
         postalCode: '8320000',
-      });  
+      });
 
       
         
