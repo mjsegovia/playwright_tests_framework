@@ -1,11 +1,14 @@
 import { test as base } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { LoginPage } from '@pages/LoginPage';
 import { CheckoutPage } from '@pages/CheckoutPage';
 import { CartPage } from '@pages/CartPage';
 import { ProductsPage } from '@pages/ProductsPage';
 import { ConfirmationPage } from '@pages/ConfirmationPage';
 
+
 type Fixtures = {
+  page : Page;
   loginPage: LoginPage;
   productPage: ProductsPage;
   cartPage: CartPage;
