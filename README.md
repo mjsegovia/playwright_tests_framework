@@ -54,9 +54,8 @@ Run all tests:
 npm run test
 
 ## Documentation
-- Architecture → docs/architecture.md
+- Architecture → docs/folder-structure.md
 - Roadmap → docs/ROADMAP.md
-- Tasks → docs/tasks.md
 
 ## Roadmap
 
