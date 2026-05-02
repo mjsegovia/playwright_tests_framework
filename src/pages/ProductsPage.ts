@@ -2,55 +2,37 @@ import { Locator, Page } from '@playwright/test';
 import { BasePage } from '@core/base/BasePage';
 import { ProductCard } from './components/ProductCard';
 
-//TODO: change name class to CatalogPage
-export class ProductsPage extends BasePage {
+export class CatalogPage extends BasePage {
+  get productCards(): Locator {
+    return this.page.locator('.shelf-container .shelf-item');
+  }
 
-    
-    get productCards(): Locator {
-        return this.page.locator('.shelf-container .shelf-item');
-    }
+  get cartButton(): Locator {
+    return this.page.locator('.float-cart');
+  }
 
-    get cart(): Locator {
-        return this.page.locator('.float-cart');
-    }
+  async getAllProducts(): Promise<ProductCard[]> {
+    const items = this.productCards.all();
+    return (await items).map((item) => new ProductCard(item));
+  }
 
-    //TODO: Create a method to return all products as ProductCard components USINC 
-   /* async getAllProducts(): Promise<ProductCard[]> {
-        const cards: ProductCard[] = [];
-        const count = await this.productCards.count();
-        for (let i = 0; i < count; i++) {
-          const cardLocator = this.productCards.nth(i);
-          cards.push(new ProductCard(this.page, cardLocator));
-        }
-        return cards;
-      }*/
+  async firstProduct(): Promise<ProductCard> {
+    return new ProductCard(this.productCards.first());
+  }
 
-    async firstProduct(): Promise<ProductCard> {
-        return new ProductCard(this.page, this.productCards.first());
-    }
+  async getProductByName(name: string): Promise<ProductCard> {
+    const item = this.productCards
+      .filter({
+        hasText: name,
+      })
+      .first();
 
-    //TODO: Create a method to find a product by name and return a ProductCard
-   /* async findProductByName(name: string): Promise<ProductCard> {
-        const card = this.productCards.filter({
-            has: this.page.locator('.shelf-item__title', { hasText: name })
-        }).first();
+    await item.waitFor({ state: 'visible' });
 
-        return new ProductCard(this.page, card);
-    }*/
+    return new ProductCard(item);
+  }
 
-     async isOpen(): Promise<boolean> {
-        return await this.cart.evaluate(el =>
-        el.classList.contains('float-cart--open')
-        ); 
-}
-
-
-
-       
-
-
-
-    async openCart(): Promise<void> {
-        await this.cart.click();        
-    }
+  async openCart(): Promise<void> {
+    await this.cartButton.click();
+  }
 }
