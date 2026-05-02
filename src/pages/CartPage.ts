@@ -1,65 +1,59 @@
-import {Page, Locator} from '@playwright/test';
-//FIX: fix the path
-import { ProductCard } from './components/ProductCard';
+import { Page, Locator } from '@playwright/test';
 import { CartItem } from './components/CartItem';
 
 export class CartPage {
-    
-    protected readonly page: Page;
-    //readonly productContainer: Locator;
-    
-    constructor(page: Page) {
-        this.page = page;
+  protected readonly page: Page;
 
-        //TODO: delete if the test passes without it, it was added to try to fix a problem with the locator of the cart items
-      //  this.productContainer = this.page.locator('shelf-item');
-    }
-        
+  constructor(page: Page) {
+    this.page = page;
+  }
 
-    get cartContainer(): Locator {
-        return this.page.locator('.float-cart__content') ;
-    }
+  get cartContent(): Locator {
+    return this.page.locator('.float-cart__content');
+  }
 
-    get cartTitle(): Locator {
-        return this.cartContainer.locator('.header-title');
-    }
+  get cartTitle(): Locator {
+    return this.cartContent.locator('.header-title');
+  }
 
-   
-    get cartItems(): Locator {
-        return this.cartContainer.locator('.shelf-item');
-    }
+  get cartItems(): Locator {
+    return this.cartContent.locator('.shelf-item');
+  }
 
-    get checkoutButton(): Locator {
-        return this.cartContainer.getByText('CHECKOUT');
-    }
+  get checkoutButton(): Locator {
+    return this.cartContent.getByText('CHECKOUT');
+  }
 
-    get emptyCartMessage(): Locator {
-        return this.cartContainer.locator('.shelf-empty');
-    }  
-    
-     get subtotal(): Locator {
-        return this.cartContainer.locator('.sub-price__val');
-    }
+  get emptyCartMessage(): Locator {
+    return this.cartContent.getByText('Add some products in the bag ');
+  }
 
-    
+  get subtotal(): Locator {
+    return this.cartContent.locator('.sub-price__val');
+  }
+  get cartContainer(): Locator {
+    return this.page.locator('.float-cart');
+  }
 
-    async getCartItems(): Promise<CartItem[]> {
-        const items = await this.cartItems.all();
+  async isOpen(): Promise<boolean> {
+    return await this.cartContainer.evaluate((el) => el.classList.contains('float-cart--open'));
+  }
 
-        //Map them to CartItem components
-        return items.map(item => new CartItem(this.page, item));        
-    }
+  async getCartItems(): Promise<CartItem[]> {
+    const items = await this.cartItems.all();
 
-    async getSubtotal(): Promise<number> {
-        const subtotalText = await this.subtotal.innerText();
+    //Map item to CartItem components
+    return items.map((item) => new CartItem(this.page, item));
+  }
 
-        const numericText = subtotalText.replace(/[^\d.]/g, '');
+  async getSubtotal(): Promise<number> {
+    const subtotalText = await this.subtotal.innerText();
+    const numericText = subtotalText.replace(/[^\d.]/g, '');
 
-        return parseFloat(numericText);
-    }   
+    return parseFloat(numericText);
+  }
 
-    async proceedToCheckout(): Promise<void>{
-      await this.checkoutButton.click();
-    }
-
+  async proceedToCheckout(): Promise<void> {
+    await this.checkoutButton.click();
+  }
 }
