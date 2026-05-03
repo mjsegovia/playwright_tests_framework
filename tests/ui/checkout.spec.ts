@@ -10,11 +10,13 @@ test.describe('Checkout critical flows', () => {
       const firstProduct = await productPage.firstProduct();
       let selectedName = await firstProduct.getName();
       let selectedPrice = await firstProduct.getPrice();
+
       await test.step('Add first product to cart', async () => {
         await firstProduct.addToCart();
         //TODO: Fix a Logger class and log this action
         Logger.log(`Added product "${selectedName}" priced at ${selectedPrice} to the cart`);
       });
+
       await test.step('Validate cart contents', async () => {
         await productPage.openCart();
         //TODO: add logging to this step
@@ -25,11 +27,11 @@ test.describe('Checkout critical flows', () => {
         const name = await item.getName();
         const price = await item.getPrice();
         const quantity = await item.getQuantity();
+        const subtotal = await cartPage.getSubtotal();
+
         expect(name).toBe(selectedName);
         expect(price).toBe(selectedPrice);
         expect(quantity).toBe(1);
-
-        const subtotal = await cartPage.getSubtotal();
         expect(subtotal).toBe(selectedPrice);
       });
     });
