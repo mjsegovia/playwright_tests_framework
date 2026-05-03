@@ -1,5 +1,5 @@
-import { test, expect } from '@core/fixtures/fixtures';
-import { users } from 'src/test-data/users';
+import { test, expect } from '@fixtures/fixtures';
+import { users } from '@test-data/users';
 
 test('user can login', { tag: '@smoke' }, async ({ loginPage }) => {
   await loginPage.goto();

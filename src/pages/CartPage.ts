@@ -1,5 +1,5 @@
 import { Page, Locator } from '@playwright/test';
-import { CartItem } from './components/CartItem';
+import { CartItem } from '@components/CartItem';
 
 export class CartPage {
   protected readonly page: Page;
