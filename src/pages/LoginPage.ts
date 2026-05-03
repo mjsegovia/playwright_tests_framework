@@ -1,10 +1,10 @@
-import { BasePage } from "@core/base/BasePage";
-import { Header } from "@pages/components/Header";
-import { Locator, Page } from "@playwright/test";
+import { BasePage } from '@core/base/BasePage';
+import { Header } from '@pages/components/Header';
+import { Locator, Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {
   readonly header: Header;
-  readonly path = "/signin";
+  readonly path = '/signin';
 
   constructor(page: Page) {
     super(page);
@@ -12,24 +12,24 @@ export class LoginPage extends BasePage {
   }
 
   async goto(): Promise<void> {
-    await this.page.goto(this.path);
-    await this.page.waitForLoadState();
-  }  
+    await this.navigate(this.path);
+    await this.waitForPageLoad();
+  }
 
   get usernameDropdown(): Locator {
-    return this.page.locator("#username");
+    return this.page.locator('#username');
   }
 
   get passwordDropdown(): Locator {
-    return this.page.locator("#password");
+    return this.page.locator('#password');
   }
 
   get loginButton(): Locator {
-    return this.page.getByRole("button", { name: "LOG IN" });
+    return this.page.getByRole('button', { name: 'LOG IN' });
   }
 
   async clickSignInLink() {
-    await this.click(this.header.signInLink, "Sign In Link");
+    await this.click(this.header.signInLink, 'Sign In Link');
   }
 
   async selectUsername(username: string): Promise<void> {
@@ -45,11 +45,11 @@ export class LoginPage extends BasePage {
   async login(username: string, password: string) {
     await this.selectUsername(username);
     await this.selectPassword(password);
-    await this.click(this.loginButton, "Login Button");    
+    await this.click(this.loginButton, 'Login Button');
   }
 
   async isLoggedIn(): Promise<boolean> {
-    await this.page.waitForURL("?signin=true");
+    await this.page.waitForURL('?signin=true');
     return await this.header.logoutLink.isVisible();
   }
 }

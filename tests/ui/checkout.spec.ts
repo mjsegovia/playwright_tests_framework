@@ -4,7 +4,7 @@ import { loadSessionStorage } from '@utils/sessionStorage';
 
 test.describe('Checkout critical flows', () => {
   test('should add item to cart', { tag: '@smoke' }, async ({ catalogPage, cartPage }) => {
-    await catalogPage.goto();
+    await catalogPage.navigate();
 
     await test.step('Add first product to cart', async () => {
       const firstProduct = await catalogPage.firstProduct();
@@ -42,7 +42,7 @@ test.describe('Checkout critical flows', () => {
     { tag: '@smoke' },
     async ({ page, catalogPage, cartPage, checkoutPage, confirmationPage }) => {
       await loadSessionStorage(page);
-      await catalogPage.goto();
+      await catalogPage.navigate();
 
       const firstProduct = await catalogPage.firstProduct();
       var itemName = await firstProduct.getName();
