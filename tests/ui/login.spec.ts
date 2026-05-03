@@ -1,10 +1,11 @@
 import { test, expect } from '@core/fixtures/fixtures';
+import { users } from 'src/test-data/users';
 
-test('user can login', { tag: '@smoke' }, async ({ loginPage}) => {
+test('user can login', { tag: '@smoke' }, async ({ loginPage }) => {
   await loginPage.goto();
-  await loginPage.login('demouser', 'testingisfun99');
+  await loginPage.login(users.demo.username, users.demo.password);
   await loginPage.waitForPageLoad();
-  await expect(loginPage['page']).toHaveURL("?signin=true")
+  await expect(loginPage.isLoggedIn()).toBeTruthy();
   await expect(loginPage.header.customerName).toHaveText('demouser');
   await expect(loginPage.header.logoutLink).toBeVisible();
 });
