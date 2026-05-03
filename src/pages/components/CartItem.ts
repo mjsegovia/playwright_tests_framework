@@ -1,49 +1,37 @@
-import {Page, Locator} from '@playwright/test'
+import { Page, Locator } from '@playwright/test';
 
 export class CartItem {
+  constructor(private readonly root: Locator) {}
 
-    private page: Page;
-    private root: Locator;
+  get itemName(): Locator {
+    return this.root.locator('.shelf-item__details .title');
+  }
 
-    constructor(page: Page, root: Locator) {
-        this.page = page;
-        this.root = root;
-    }
+  get itemPrice(): Locator {
+    return this.root.locator('.shelf-item__price');
+  }
 
-     get itemName(): Locator {
-        return this.root.locator('.shelf-item__details .title');
-    }
+  get description(): Locator {
+    return this.root.locator('.desc');
+  }
 
-    get itemPrice(): Locator {
-        return this.root.locator('.shelf-item__price');
-    }
+  get removeItemButtons(): Locator {
+    return this.root.locator('.shelf-item__del');
+  }
 
+  async getName(): Promise<string> {
+    return await this.itemName.innerText();
+  }
 
-     get description(): Locator {
-        return this.root.locator('.desc');
-    }  
+  async getPrice(): Promise<number> {
+    const priceText = await this.itemPrice.innerText();
+    const numericText = priceText.replace(/[^\d.]/g, '');
+    return parseFloat(numericText);
+  }
 
-    get removeItemButtons(): Locator {
-        return this.root.locator('.shelf-item__del');
-    }
-
-    async getName(): Promise<string> {
-        return await this.itemName.innerText();
-    }
-
-    async getPrice(): Promise<number> {
-        const priceText = await this.itemPrice.innerText();
-        const numericText = priceText.replace(/[^\d.]/g, '');
-        return parseFloat(numericText);
-    }
-
-     async getQuantity(): Promise<number> {
-        const descriptionText = await this.description.textContent();
-        const match = descriptionText?.match(/Quantity:\s*(\d+)/);
-        return match ? parseInt(match[1], 10) : 0;
-    }
+  async getQuantity(): Promise<number> {
+    const descriptionText = await this.description.textContent();
+    const match = descriptionText?.match(/Quantity:\s*(\d+)/);
+    return match ? parseInt(match[1], 10) : 0;
+  }
 }
-        
-    
-    
-    

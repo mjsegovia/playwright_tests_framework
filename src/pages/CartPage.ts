@@ -43,7 +43,7 @@ export class CartPage {
     const items = await this.cartItems.all();
 
     //Map item to CartItem components
-    return items.map((item) => new CartItem(this.page, item));
+    return items.map((item) => new CartItem(item));
   }
 
   async getSubtotal(): Promise<number> {
