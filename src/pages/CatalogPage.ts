@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from '@core/base/BasePage';
-import { ProductCard } from './components/ProductCard';
+import { ProductCard } from '@components/ProductCard';
 
 export class CatalogPage extends BasePage {
   get productCards(): Locator {

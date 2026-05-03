@@ -3,11 +3,11 @@ import { test, expect } from '@core/fixtures/fixtures';
 import { loadSessionStorage } from '@utils/sessionStorage';
 
 test.describe('Checkout critical flows', () => {
-  test('should add item to cart', { tag: '@smoke' }, async ({ productPage, cartPage }) => {
-    await productPage.goto();
+  test('should add item to cart', { tag: '@smoke' }, async ({ catalogPage, cartPage }) => {
+    await catalogPage.goto();
 
     await test.step('Add first product to cart', async () => {
-      const firstProduct = await productPage.firstProduct();
+      const firstProduct = await catalogPage.firstProduct();
       let selectedName = await firstProduct.getName();
       let selectedPrice = await firstProduct.getPrice();
 
@@ -18,7 +18,7 @@ test.describe('Checkout critical flows', () => {
       });
 
       await test.step('Validate cart contents', async () => {
-        await productPage.openCart();
+        await catalogPage.openCart();
         //TODO: add logging to this step
         const items = await cartPage.getCartItems();
         expect(items.length).toBeGreaterThan(0);
@@ -40,11 +40,11 @@ test.describe('Checkout critical flows', () => {
   test(
     'should complete checkout successfully',
     { tag: '@smoke' },
-    async ({ page, productPage, cartPage, checkoutPage, confirmationPage }) => {
+    async ({ page, catalogPage, cartPage, checkoutPage, confirmationPage }) => {
       await loadSessionStorage(page);
-      await productPage.goto();
+      await catalogPage.goto();
 
-      const firstProduct = await productPage.firstProduct();
+      const firstProduct = await catalogPage.firstProduct();
       var itemName = await firstProduct.getName();
       var itemPrice = await firstProduct.getPrice();
 
@@ -54,7 +54,7 @@ test.describe('Checkout critical flows', () => {
       });
 
       await test.step('Proceed to checkout', async () => {
-        await productPage.openCart();
+        await catalogPage.openCart();
         const items = await cartPage.getCartItems();
         expect(await items[0].getName()).toBe(itemName);
         await cartPage.proceedToCheckout();
