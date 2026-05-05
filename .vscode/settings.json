@@ -1,0 +1,8 @@
+{
+    "todo-tree.tree.showBadges": false,
+    "todo-tree.tree.showCountsInTree": true,
+
+    //Formatting rules    
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+}

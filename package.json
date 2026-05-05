@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:chromium": "playwright test --project=chromium",
+    "test:chromium": "playwright test --project=authenticated-chromium --project=chromium-logged-out",
+    "test:auth-setup": "playwright test --project=auth-setup",
+    "test:authenticated-chromium": "playwright test --project=authenticated-chromium",
+    "test:chromium-logged-out": "playwright test --project=chromium-logged-out",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
     "test:headed": "HEADLESS=false playwright test",
@@ -21,6 +26,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0"
+    "@types/node": "^25.6.0",
+    "prettier": "^3.8.3"
   }
 }

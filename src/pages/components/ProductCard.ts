@@ -1,41 +1,40 @@
-import {Page, Locator} from '@playwright/test'
+import { Locator } from '@playwright/test';
+import { ProductInfo } from '../../types/Product';
+import { parsePrice } from '../../utils/price';
 
 export class ProductCard {
+  constructor(private readonly root: Locator) {}
 
-    private page: Page;
-    private root: Locator;
+  get title(): Locator {
+    return this.root.locator('.shelf-item__title');
+  }
 
-    constructor(page: Page, root: Locator) {
-        this.page = page;
-        this.root = root;
-    }
+  get price(): Locator {
+    return this.root.locator('.shelf-item__price .val');
+  }
 
-    get title(): Locator {
-        return this.root.locator('.shelf-item__title');
-    }
+  get addToCartButton(): Locator {
+    return this.root.getByText('Add to cart');
+  }
 
-    get price(): Locator {
-        return this.root.locator('.shelf-item__price .val');
-    }
+  async getName(): Promise<string> {
+    return await this.title.innerText();
+  }
 
-    get addToCartButton(): Locator {
-        return this.root.getByText('Add to cart');
-    }
+  async getPrice(): Promise<number> {
+    const priceText = await this.price.innerText();
 
-    async getName(): Promise<string> {
-        return await this.title.innerText();
-    }
+    return parsePrice(priceText);
+  }
 
-    async getPrice(): Promise<number> {
-       
+  async getProductInfo(): Promise<ProductInfo> {
+    return {
+      name: await this.getName(),
+      price: await this.getPrice(),
+    };
+  }
 
-        const priceText = await this.price.innerText();
-        const numericText = priceText.replace(/[^\d.]/g, '');
-
-        return parseFloat(numericText);
-    }
-
-    async addToCart(): Promise<void> {
-        await this.addToCartButton.click();
-    }
+  async addToCart(): Promise<void> {
+    await this.addToCartButton.click();
+  }
 }

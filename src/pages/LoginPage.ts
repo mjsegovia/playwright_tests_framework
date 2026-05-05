@@ -1,6 +1,6 @@
 import { BasePage } from '@core/base/BasePage';
 import { Header } from '@pages/components/Header';
-import { Locator, Page } from '@playwright/test'
+import { Locator, Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {
   readonly header: Header;
@@ -10,17 +10,17 @@ export class LoginPage extends BasePage {
     super(page);
     this.header = new Header(page);
   }
-  
+
   async goto(): Promise<void> {
-    await this.page.goto(this.path);
+    await this.navigate(this.path);
+    await this.waitForPageLoad();
   }
 
-  get usernameInput(): Locator {
-   // return this.page.getByText('Select Username');
+  get usernameDropdown(): Locator {
     return this.page.locator('#username');
   }
 
-  get passwordInput(): Locator {
+  get passwordDropdown(): Locator {
     return this.page.locator('#password');
   }
 
@@ -32,25 +32,24 @@ export class LoginPage extends BasePage {
     await this.click(this.header.signInLink, 'Sign In Link');
   }
 
-  async login(username: string, password: string) {
-    await this.usernameInput.click();
-    await this.page.keyboard.type(username);
-    await this.page.keyboard.press('Enter');
-        
-       // await this.fill(this.usernameInput, username, 'Username Input');
-    await this.passwordInput.click();
-    await this.page.keyboard.type(password);
-    await this.page.keyboard.press('Enter');
+  async selectUsername(username: string): Promise<void> {
+    await this.usernameDropdown.click();
+    this.page.getByText(username, { exact: true }).click();
+  }
 
-    // await this.fill(this.passwordInput, password, 'Password Input');
+  async selectPassword(password: string): Promise<void> {
+    await this.passwordDropdown.click();
+    await this.page.getByText(password, { exact: true }).click();
+  }
+
+  async login(username: string, password: string) {
+    await this.selectUsername(username);
+    await this.selectPassword(password);
     await this.click(this.loginButton, 'Login Button');
   }
 
   async isLoggedIn(): Promise<boolean> {
-
-    await this.page.waitForURL('?signin=true')    
-    return await this.header.logoutLink.isVisible();   
+    await this.page.waitForURL('?signin=true');
+    return await this.header.logoutLink.isVisible();
   }
-
- 
-}    
+}

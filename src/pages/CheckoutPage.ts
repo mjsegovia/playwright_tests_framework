@@ -1,70 +1,68 @@
 import { BasePage } from '@core/base/BasePage';
-import {Page, Locator} from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
-export class CheckoutPage  extends BasePage{
-    
- constructor(page: Page) {
+export class CheckoutPage extends BasePage {
+  private readonly path = '/checkout';
+
+  constructor(page: Page) {
     super(page);
-    }
-    
-    async goto() {
-        await this.page.goto('/checkout');
-    }
-       
-    get checkoutTitle(): Locator {
-        return this.page.getByTestId('shipping-address-heading'); 
-    }
+  }
 
-    get firstNameInput(): Locator {
-        return this.page.getByRole('textbox', { name: 'First Name' });
-    }
+  async goto() {
+    await this.navigate(this.path);
+  }
 
-    get lastNameInput(): Locator {
-        return this.page.getByRole('textbox', { name: 'Last Name' });
-    }
+  get checkoutTitle(): Locator {
+    return this.page.getByTestId('shipping-address-heading');
+  }
 
-    get addressInput(): Locator {
-        return this.page.getByRole('textbox', { name: 'Address' });
-    }
+  get firstNameInput(): Locator {
+    return this.page.getByRole('textbox', { name: 'First Name' });
+  }
 
-    get postalCodeInput(): Locator {
-        return this.page.getByRole('textbox', { name: 'Postal Code' });
-    }
+  get lastNameInput(): Locator {
+    return this.page.getByRole('textbox', { name: 'Last Name' });
+  }
 
-    get stateProvinceInput(): Locator {
-        return this.page.getByRole('textbox', { name: 'State/Province' });
-    }
+  get addressInput(): Locator {
+    return this.page.getByRole('textbox', { name: 'Address' });
+  }
 
-    get submitButton(): Locator {
-        return this.page.getByRole('button', { name: 'Submit' });
-    }
+  get postalCodeInput(): Locator {
+    return this.page.getByRole('textbox', { name: 'Postal Code' });
+  }
 
-    async fillShippingInfo(details: { 
-        firstName?: string; 
-        lastName?: string;
-        address?: string;
-        postalCode?: string; 
-        stateProvince?: string;}) 
-        : Promise<void> {
-        if (details.firstName) 
-            await this.fill(this.firstNameInput, details.firstName, 'First Name Input');        
-        if (details.lastName) 
-            await this.fill(this.lastNameInput, details.lastName, 'Last Name Input');
-        if(details.address)
-            await this.fill(this.addressInput, details.address, 'Address Input');       
-        if (details.postalCode) 
-            await this.fill(this.postalCodeInput, details.postalCode, 'Postal Code Input');        
-        if (details.stateProvince) 
-            await this.fill(this.stateProvinceInput, details.stateProvince, 'State/Province Input');        
-    }
+  get stateProvinceInput(): Locator {
+    return this.page.getByRole('textbox', { name: 'State/Province' });
+  }
 
-    async submitShippingInfo(): Promise<void> {
-        await Promise.all([
-                    this.submitButton.waitFor({ state: 'visible' }),
-                    this.click(this.submitButton, 'Submit Button'),                   
-                ]);       //Alternatively, if the navigation is not guaranteed, we can just click the button without waiting for navigation
-        //await   
-                    this.click(this.submitButton, 'Submit Button');
-    }
+  get submitButton(): Locator {
+    return this.page.getByRole('button', { name: 'Submit' });
+  }
 
+  async fillShippingInfo(details: {
+    firstName?: string;
+    lastName?: string;
+    address?: string;
+    postalCode?: string;
+    stateProvince?: string;
+  }): Promise<void> {
+    if (details.firstName)
+      await this.fill(this.firstNameInput, details.firstName, 'First Name Input');
+    if (details.lastName) await this.fill(this.lastNameInput, details.lastName, 'Last Name Input');
+    if (details.address) await this.fill(this.addressInput, details.address, 'Address Input');
+    if (details.postalCode)
+      await this.fill(this.postalCodeInput, details.postalCode, 'Postal Code Input');
+    if (details.stateProvince)
+      await this.fill(this.stateProvinceInput, details.stateProvince, 'State/Province Input');
+  }
+
+  async submitShippingInfo(): Promise<void> {
+    await Promise.all([
+      this.submitButton.waitFor({ state: 'visible' }),
+      this.click(this.submitButton, 'Submit Button'),
+    ]); //Alternatively, if the navigation is not guaranteed, we can just click the button without waiting for navigation
+    //await
+    this.click(this.submitButton, 'Submit Button');
+  }
 }

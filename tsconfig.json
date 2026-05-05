@@ -9,8 +9,8 @@
 
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,    
-    
+    "skipLibCheck": true,
+
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
 
@@ -19,15 +19,12 @@
       "@components/*": ["src/pages/components/*"],
       "@core/*": ["src/core/*"],
       "@utils/*": ["src/utils/*"],
-      "@fixtures/*": ["src/core/fixtures/*"]      
+      "@fixtures/*": ["src/core/fixtures/*"],
+      "@test-data/*": ["src/test-data/users"]
     },
 
-    "types": ["node", "@playwright/test"],
+    "types": ["node", "@playwright/test"]
   },
 
-  "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts",
-    "playwright.config.ts"
-  ]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
 }
