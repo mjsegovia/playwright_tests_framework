@@ -21,10 +21,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    // Uncomment this only if the API requires an 'x-api-key' header for every request
+    //Uncomment this only if the API requires an 'x-api-key' header for every request
     // extraHTTPHeaders: {
-    //    'x-api-key': process.env.REQRES_API_KEY || '',
-    //  },
+    //   'x-api-key': process.env.REQRES_API_KEY || '',
+    // },
   },
 
   projects: [
@@ -34,18 +34,18 @@ export default defineConfig({
     },
     {
       name: 'authenticated-chromium',
+      testMatch: 'ui/authenticated/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'tests/.auth/user.json',
       },
-      dependencies: ['setup'],
+      dependencies: ['auth-setup'],
     },
     {
       name: 'chromium-logged-out',
-      testMatch: /ui\/public\/.*\.spec\.ts/,
+      testMatch: 'ui/unauthenticated/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: undefined,
       },
     },
 
