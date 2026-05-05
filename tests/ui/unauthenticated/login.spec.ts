@@ -1,4 +1,4 @@
-import { test, expect } from '@fixtures/fixtures';
+import { expect, test } from '@fixtures/fixtures';
 import { users } from '@test-data/users';
 
 test('user can login', { tag: '@smoke' }, async ({ loginPage }) => {
