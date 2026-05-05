@@ -1,4 +1,6 @@
-import { Page, Locator } from '@playwright/test';
+import { Locator } from '@playwright/test';
+import { ProductInfo } from '../../types/Product';
+import { parsePrice } from '../../utils/price';
 
 export class CartItem {
   constructor(private readonly root: Locator) {}
@@ -25,8 +27,14 @@ export class CartItem {
 
   async getPrice(): Promise<number> {
     const priceText = await this.itemPrice.innerText();
-    const numericText = priceText.replace(/[^\d.]/g, '');
-    return parseFloat(numericText);
+    return parsePrice(priceText);
+  }
+
+  async getProductInfo(): Promise<ProductInfo> {
+    return {
+      name: await this.getName(),
+      price: await this.getPrice(),
+    };
   }
 
   async getQuantity(): Promise<number> {
