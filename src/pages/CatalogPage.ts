@@ -1,6 +1,7 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator } from '@playwright/test';
 import { BasePage } from '@core/base/BasePage';
 import { ProductCard } from '@components/ProductCard';
+import { ProductInfo } from '../types/Product';
 
 export class CatalogPage extends BasePage {
   get productCards(): Locator {
@@ -30,6 +31,19 @@ export class CatalogPage extends BasePage {
     await item.waitFor({ state: 'visible' });
 
     return new ProductCard(item);
+  }
+
+  async addProductToCart(product: ProductCard): Promise<ProductInfo> {
+    const productInfo = await product.getProductInfo();
+    await product.addToCart();
+
+    return productInfo;
+  }
+
+  async addFirstProductToCart(): Promise<ProductInfo> {
+    const product = await this.firstProduct();
+
+    return this.addProductToCart(product);
   }
 
   async openCart(): Promise<void> {

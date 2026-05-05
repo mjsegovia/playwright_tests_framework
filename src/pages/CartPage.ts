@@ -1,5 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { CartItem } from '@components/CartItem';
+import { ProductInfo } from '../types/Product';
+import { parsePrice } from '../utils/price';
 
 export class CartPage {
   protected readonly page: Page;
@@ -46,11 +48,16 @@ export class CartPage {
     return items.map((item) => new CartItem(item));
   }
 
+  async getFirstCartProduct(): Promise<ProductInfo> {
+    const [firstItem] = await this.getCartItems();
+
+    return firstItem.getProductInfo();
+  }
+
   async getSubtotal(): Promise<number> {
     const subtotalText = await this.subtotal.innerText();
-    const numericText = subtotalText.replace(/[^\d.]/g, '');
 
-    return parseFloat(numericText);
+    return parsePrice(subtotalText);
   }
 
   async proceedToCheckout(): Promise<void> {
