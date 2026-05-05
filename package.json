@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:chromium": "playwright test --project=chromium",
+    "test:chromium": "playwright test --project=authenticated-chromium --project=chromium-logged-out",
+    "test:auth-setup": "playwright test --project=auth-setup",
+    "test:authenticated-chromium": "playwright test --project=authenticated-chromium",
+    "test:chromium-logged-out": "playwright test --project=chromium-logged-out",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
     "test:headed": "HEADLESS=false playwright test",
@@ -24,7 +29,6 @@
     "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.59.1",
     "@typescript-eslint/parser": "^8.59.1",
-    "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.3"
   }
